@@ -33,7 +33,7 @@ func NewMetricsServer() (metrics *http.Server) {
 	metrics = &http.Server{Addr: Config.Metrics.ListenAddress, Handler: nil}
 	go func() {
 		wg.Add(1)
-		log.Infof("Starting HTTP metrics server on %v/%s", Config.Metrics.ListenAddress, Config.Metrics.Endpoint)
+		log.Infof("Starting HTTP metrics server on %v%s", Config.Metrics.ListenAddress, Config.Metrics.Endpoint)
 		err := metrics.ListenAndServe()
 		if err != nil {
 			if err == http.ErrServerClosed {

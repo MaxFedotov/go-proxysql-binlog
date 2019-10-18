@@ -1,0 +1,5 @@
+getent group proxysql_binlog >/dev/null || groupadd -r proxysql_binlog
+getent passwd proxysql_binlog >/dev/null || \
+    useradd -r -g proxysql_binlog -s /sbin/nologin \
+    -c "ProxySQL binlog reader" proxysql_binlog
+exit 0

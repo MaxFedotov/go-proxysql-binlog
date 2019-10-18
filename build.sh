@@ -172,7 +172,7 @@ package_linux() {
 
   debug "Creating Distro full packages"
   [ $do_rpm -eq 1 ] && fpm -v "${RELEASE_VERSION}" --epoch 1 -f -s dir -n proxysql-binlog -m max-fedotov --description "Proxysql-binlog: service for sending GTID info to ProxySQL" --url "https://github.com/MaxFedotov/go-proxysql-binlog" --vendor "Max Fedotov" --license "Apache 2.0" -C $build_path/proxysql-binlog --prefix=/ --config-files /etc/proxysql-binlog.cnf --rpm-os linux --before-install $build_path/tmp/pre-install --rpm-attr 744,proxysql_binlog,proxysql_binlog:/var/log/proxysql-binlog -t rpm .
-  [ $do_deb -eq 1 ] && fpm -v "${RELEASE_VERSION}" --epoch 1 -f -s dir -n proxysql-binlog -m max-fedotov --description "Proxysql-binlog: service for sending GTID info to ProxySQL" --url "https://github.com/MaxFedotov/go-proxysql-binlog" --vendor "Max Fedotov" --license "Apache 2.0" -C $build_path/proxysql-binlog --prefix=/ --config-files /etc/proxysql-binlog.cnf --before-install $build_path/tmp/pre-install -t deb --deb-no-default-config-files .
+  [ $do_deb -eq 1 ] && fpm -v "${RELEASE_VERSION}" --epoch 1 -f -s dir -n proxysql-binlog -m max-fedotov --description "Proxysql-binlog: service for sending GTID info to ProxySQL" --url "https://github.com/MaxFedotov/go-proxysql-binlog" --vendor "Max Fedotov" --license "Apache 2.0" -C $build_path/proxysql-binlog --prefix=/ --config-files /etc/proxysql-binlog.cnf --before-install $build_path/tmp/pre-install -t deb --deb-no-default-config-files --deb-user proxysql_binlog --deb-group proxysql_binlog .
 
 
   debug "packages:"
