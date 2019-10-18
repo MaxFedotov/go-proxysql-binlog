@@ -1,0 +1,14 @@
+[general]
+listen_address = "0.0.0.0:999"
+log_file = "/var/log/proxysql-binlog/proxysql-binlog.log"
+log_level = "info"
+
+[mysql]
+host = "ed-c4-173-29"
+port = 3306
+user = "rslave"
+password = "RQL0jLL8lO6rLl"
+
+[metrics]
+listen_address = "0.0.0.0:9056"
+endpoint = "/metrics"

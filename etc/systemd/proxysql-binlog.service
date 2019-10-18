@@ -1,0 +1,19 @@
+[Unit]
+Description=Proxysql-binlog: service for sending GTID info to ProxySQL
+Documentation=https://github.com/MaxFedotov/go-proxysql-binlog
+After=syslog.target 
+After=network.target
+
+[Service]
+User=proxysql_binlog
+Group=proxysql_binlog
+Type=simple
+ExecStart=/usr/bin/proxysql-binlog
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+RestartSec=60s
+
+
+[Install]
+WantedBy=multi-user.target
