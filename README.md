@@ -16,8 +16,8 @@ cd {module directory}
 ```
 
 ## Install notes
-Install proxysql-binlog on MySQL host. In order to work, proxysql-binlog requires `REPLICATION SLAVE` MySQL privileges. 
-You also need to configure ProxySQL to get data from proxysql-binlog (see [ProxySQL configuration](#proxysql-configuration))
+Install proxysql-binlog on MySQL host. Configure MySQL (see [MySQL configuration](#mysql-configuration)) and 
+ProxySQL (see [ProxySQL configuration](#proxysql-configuration))
 
 ## Usage
 ```
@@ -46,6 +46,21 @@ password = "slavepassword"                                  # MySQL password
 [metrics]
 listen_address = "0.0.0.0:9056"                             # Address to listen on for metrics web interface
 endpoint = "/metrics"                                       # Path under which to expose metrics
+```
+
+## MySQL configuration
+Create user for proxysql-binlog and grant `REPLICATION SLAVE` permissions (if you already have slave user - you can use it and skip this step):
+```sql
+CREATE USER 'slave'@'localhost' IDENTIFIED BY 'slavepassword';
+GRANT REPLICATION SLAVE ON *.* TO 'slave'@'localhost';
+```
+Add following lines to my.cnf:
+```
+log-bin                  = mysql-bin
+enforce_gtid_consistency = ON
+binlog_row_image         = FULL
+gtid_mode                = ON
+session_track_gtids      = OWN_GTID
 ```
 
 ## ProxySQL configuration
