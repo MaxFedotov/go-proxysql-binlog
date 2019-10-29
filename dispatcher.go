@@ -5,6 +5,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"net"
+	"regexp"
+	"strings"
 
 	uuid "github.com/satori/go.uuid"
 	log "github.com/siddontang/go-log/log"
@@ -48,8 +50,16 @@ func (dispatcher *Dispatcher) process() {
 		case s := <-dispatcher.NewClients:
 			dispatcher.Clients[s] = UUID(uuid.Nil)
 			log.Infof("client added to dispatcher. Total clients: %d", len(dispatcher.Clients))
-			gtidExecuted, _ := Config.getMasterGTIDSet()
-			s <- []byte(fmt.Sprintf("ST=%s\n", gtidExecuted.String()))
+			gtidSet, _ := Config.getMasterGTIDSet()
+			var gtidExecuted []string
+			for _, gtid := range strings.Split(gtidSet.String(), ",") {
+				matched, _ := regexp.MatchString(`^.*:\d$`, gtid)
+				if matched {
+					gtid += "-1"
+				}
+				gtidExecuted = append(gtidExecuted, gtid)
+			}
+			s <- []byte(fmt.Sprintf("ST=%s\n", strings.Join(gtidExecuted, ",")))
 		case s := <-dispatcher.ClosingClients:
 			delete(dispatcher.Clients, s)
 			log.Infof("client removed from dispatcher. Total clients: %d", len(dispatcher.Clients))
