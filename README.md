@@ -19,6 +19,9 @@ cd {module directory}
 Install proxysql-binlog on MySQL host. Configure MySQL (see [MySQL configuration](#mysql-configuration)) and 
 ProxySQL (see [ProxySQL configuration](#proxysql-configuration))
 
+## Puppet module
+There is a [puppet module](https://github.com/MaxFedotov/puppet-proxysql_binlog) which can be used to automate deployment and configuration of proxysql-binlog
+
 ## Usage
 ```
 Usage of proxysq_binlog:
