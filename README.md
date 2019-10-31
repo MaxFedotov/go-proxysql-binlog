@@ -95,8 +95,8 @@ You can check that everything is working using following query:
 ```
 In order for start using GTID casual reads you need to create following rules in Proxysql:
 ```sql
-      INSERT INTO mysql_query_rules(rule_id,active,match_digest,destination_hostgroup,gtid_from_hostgroup) VALUES(1,1,'^SELECT.*FOR UPDATE',1,NULL);
-      INSERT INTO mysql_query_rules(rule_id,active,match_digest,destination_hostgroup,gtid_from_hostgroup) VALUES(2,1,'^SELECT',2,1);
+      INSERT INTO mysql_query_rules(rule_id,active,match_digest,destination_hostgroup,gtid_from_hostgroup,apply) VALUES(1,1,'^SELECT.*FOR UPDATE$',1,NULL,1);
+      INSERT INTO mysql_query_rules(rule_id,active,match_digest,destination_hostgroup,gtid_from_hostgroup,apply) VALUES(2,1,'^SELECT',2,1,1);
       LOAD MYSQL QUERY RULES TO RUNTIME;
       SAVE MYSQL QUERY RULES TO DISK;
 ```
