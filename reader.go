@@ -16,12 +16,13 @@ type BinlogReader struct {
 func NewBinlogReader() (binlogReader *BinlogReader, err error) {
 	binlogReader = &BinlogReader{
 		Config: replication.BinlogSyncerConfig{
-			Flavor:   "mysql",
-			Host:     Config.MySQL.Host,
-			Port:     Config.MySQL.Port,
-			User:     Config.MySQL.User,
-			Password: Config.MySQL.Password,
-			ServerID: Config.MySQL.ServerID,
+			Flavor:    "mysql",
+			Host:      Config.MySQL.Host,
+			Port:      Config.MySQL.Port,
+			User:      Config.MySQL.User,
+			Password:  Config.MySQL.Password,
+			ServerID:  Config.MySQL.ServerID,
+			Localhost: "proxysql_binlog",
 		},
 	}
 	gtid, err := Config.getMasterGTIDSet()
